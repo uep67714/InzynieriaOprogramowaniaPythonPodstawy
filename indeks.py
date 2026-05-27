@@ -48,10 +48,37 @@ def index_documents(documents: list[str], queries: list[str]) -> list[list[int]]
         list[list[int]]: Lista wyników dla kolejnych zapytań.
     """
     ### TUTAJ PODAJ ROZWIĄZANIE ZADANIA
+    doc_counts = []
 
-    ### return [[]] - powinno być zmienione i zwrócić prawdziwy wynik (zgodny z oczekiwaniami)
-    return [[]]
+    for doc in documents:
+        cleaned_chars = [c.lower() if c.isalnum() or c.isspace() else ' ' for c in doc]
+        cleaned_text = "".join(cleaned_chars)
 
+        counts = {}
+        for word in cleaned_text.split():
+            counts[word] = counts.get(word, 0) + 1
+        doc_counts.append(counts)
+
+    results = []
+
+    for query in queries:
+        query_lower = query.lower()
+        matched_docs = []
+
+        for i, counts in enumerate(doc_counts):
+            count = counts.get(query_lower, 0)
+            if count > 0:
+                matched_docs.append((i, count))
+
+        if not matched_docs:
+            results.append([])
+            continue
+
+        matched_docs.sort(key=lambda x: (-x[1], x[0]))
+
+        results.append([i for i, _ in matched_docs])
+
+    return results
 
 # Przykładowe wywołanie:
 if __name__ == "__main__":

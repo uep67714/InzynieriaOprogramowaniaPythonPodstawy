@@ -21,19 +21,17 @@ Wymagania:
 """
 
 def check_parentheses(s: str) -> bool:
-    """
-    Sprawdza, czy w ciągu znaków 's' nawiasy okrągłe są poprawnie sparowane.
+    counter = 0
+    for char in s:
+        if char == '(':
+            counter += 1
+        elif char == ')':
+            counter -= 1
 
-    Args:
-        s (str): Ciąg znaków do analizy.
+        if counter < 0:
+            return False
 
-    Returns:
-        bool: True jeśli nawiasy są poprawne, False w przeciwnym wypadku.
-    """
-    ### TUTAJ PODAJ ROZWIĄZANIE ZADANIA
-
-    ### return False - powinno być zmienione i zwrócić prawdziwy wynik (zgodny z oczekiwaniami)
-    return False
+    return counter == 0
 
 # Przykładowe wywołanie:
 if __name__ == "__main__":

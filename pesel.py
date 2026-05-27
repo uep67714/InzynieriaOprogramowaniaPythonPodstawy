@@ -29,9 +29,16 @@ def verify_pesel(pesel: str) -> int:
         int: 1 jeśli numer jest poprawny, 0 jeśli nie.
     """
     ### TUTAJ PODAJ ROZWIĄZANIE ZADANIA
+    weights = [1, 3, 7, 9, 1, 3, 7, 9, 1, 3]
+
+    ### Mnożymy pierwsze 10 cyfr przez wagi i sumujemy
+    total_sum = sum(int(pesel[i]) * weights[i] for i in range(10))
+
+    ### Obliczamy cyfrę kontrolną
+    control_digit = (10 - (total_sum % 10)) % 10
 
     ### return 0 - powinno być zmienione i zwrócić prawdziwy wynik (zgodny z oczekiwaniami)
-    return 0
+    return 1 if control_digit == int(pesel[10]) else 0
 
 
 # Przykładowe wywołanie:
